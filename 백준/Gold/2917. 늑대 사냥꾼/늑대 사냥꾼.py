@@ -34,20 +34,27 @@ while queue:
         if 0 <= ny < n and 0 <= nx < m and dist[ny][nx] > cnt + 1:
             dist[ny][nx] = cnt + 1
             queue.append([ny, nx, cnt + 1])
-answer_dist = [[-float('inf')] * m for _ in range(n)]
-heap = []
-heap.append([-dist[start[0]][start[1]], start[0], start[1]])
 
-while heap:
-    cur_min, y, x = heappop(heap)
 
-    for dy, dx, in direction:
-        ny, nx = dy + y, dx + x
-        if 0 <= ny < n and 0 <= nx < m:
-            next_dist = min(-cur_min, dist[ny][nx])
+def dijkstra():
+    answer_dist = [[-float('inf')] * m for _ in range(n)]
+    heap = []
+    heap.append([-dist[start[0]][start[1]], start[0], start[1]])
+    while heap:
+        cur_min, y, x = heappop(heap)
 
-            if next_dist > answer_dist[ny][nx]:
-                answer_dist[ny][nx] = next_dist
-                heappush(heap, [-next_dist, ny, nx])
+        if [y,x] == end:
+            return answer_dist[end[0]][end[1]]
 
-print(answer_dist[end[0]][end[1]])
+
+        for dy, dx, in direction:
+            ny, nx = dy + y, dx + x
+            if 0 <= ny < n and 0 <= nx < m:
+                next_dist = min(-cur_min, dist[ny][nx])
+
+                if next_dist > answer_dist[ny][nx]:
+                    answer_dist[ny][nx] = next_dist
+                    heappush(heap, [-next_dist, ny, nx])
+
+
+print(dijkstra())
