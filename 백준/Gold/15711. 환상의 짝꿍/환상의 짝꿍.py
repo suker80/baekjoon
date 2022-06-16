@@ -4,8 +4,10 @@ max_thieve = 2_000_001
 thieves = [False] * max_thieve
 
 for i in range(2, max_thieve):
-    for j in range(i + i, max_thieve, i):
-        thieves[j] = True
+    if not thieves[i]:
+
+        for j in range(i + i, max_thieve, i):
+            thieves[j] = True
 thieves[1] = True
 primes = [i for i in range(2, max_thieve) if not thieves[i]]
 
