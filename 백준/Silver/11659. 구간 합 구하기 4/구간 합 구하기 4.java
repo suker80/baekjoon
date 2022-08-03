@@ -13,6 +13,7 @@ public class Main {
         String[] s = br.readLine().split(" ");
         n = Integer.parseInt(s[0]);
         m = Integer.parseInt(s[1]);
+        StringBuilder sb = new StringBuilder();
 
         int[] array = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 
@@ -24,9 +25,10 @@ public class Main {
             String[] query = br.readLine().split(" ");
             start = Integer.parseInt(query[0]);
             end = Integer.parseInt(query[1]);
-            System.out.println(prefix[end] - prefix[start - 1]);
-
+            sb.append(prefix[end] - prefix[start - 1]);
+            sb.append("\n");
         }
+        System.out.println(sb);
 
 
     }
