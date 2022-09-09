@@ -1,4 +1,4 @@
-# [Silver III] 스위치 켜고 끄기 - 1244 
+# [Silver IV] 스위치 켜고 끄기 - 1244 
 
 [문제 링크](https://www.acmicpc.net/problem/1244) 
 

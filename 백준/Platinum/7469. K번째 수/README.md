@@ -1,4 +1,4 @@
-# [Platinum III] K번째 수 - 7469 
+# [Platinum II] K번째 수 - 7469 
 
 [문제 링크](https://www.acmicpc.net/problem/7469) 
 

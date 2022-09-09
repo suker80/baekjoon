@@ -1,4 +1,4 @@
-# [Gold II] 레이스 - 1508 
+# [Gold I] 레이스 - 1508 
 
 [문제 링크](https://www.acmicpc.net/problem/1508) 
 
@@ -8,7 +8,7 @@
 
 ### 분류
 
-이분 탐색(binary_search)
+이분 탐색(binary_search), 그리디 알고리즘(greedy), 매개 변수 탐색(parametric_search)
 
 ### 문제 설명
 

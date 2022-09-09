@@ -31,8 +31,8 @@
 			<td style="text-align: center;">아리의 진행 방향이 오른쪽일 때</td>
 		</tr>
 		<tr>
-			<td style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/2439b24d-fbe4-4def-b231-ce2ed5a5e6ac/" style="width: 298px; height: 250px;"></td>
-			<td style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/1676d0dd-0760-498c-b92f-b6c2c466297e/" style="width: 300px; height: 250px;"></td>
+			<td style="text-align: center;"><img alt="" src="" style="width: 298px; height: 250px;"></td>
+			<td style="text-align: center;"><img alt="" src="" style="width: 300px; height: 250px;"></td>
 		</tr>
 	</tbody>
 </table>

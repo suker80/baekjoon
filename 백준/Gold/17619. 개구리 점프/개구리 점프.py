@@ -1,10 +1,10 @@
 import sys
-sys.setrecursionlimit(100001)
+
 input = sys.stdin.readline
 
 n, q = map(int, input().split())
 
-line = [list(map(int, input().split())) + [_ + 1] for _ in range(n)]
+line = [list(map(int, input().split())) for _ in range(n)]
 
 Q = [list(map(int, input().split())) for _ in range(q)]
 
@@ -25,18 +25,16 @@ def union(x, y):
     parent[x] = y
 
 
-line.sort()
-
-line_idx = line[0][3]
-line_left = line[0][0]
-line_right = line[0][1]
+max_idx = 0
+max_right = line[0][1]
+line.sort(key=lambda x: (x[1], x[0]))
 for i in range(1, n):
-    if line_right >= line[i][0]:
-        line_right = max(line[i][1], line_right)
-        union(line_idx, line[i][3])
+    if max_right >= line[i][0]:
+        max_right = line[i][1]
+        union(max_idx, i)
     else:
-        line_right = line[i][1]
-        line_idx = line[i][3]
+        max_idx = i
+        max_right = line[i][1]
 
 for a, b in Q:
-    print(1) if find(a) == find(b) else print(0)
+    print(1) if find(a - 1) == find(b - 1) else print(0)
