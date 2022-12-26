@@ -1,6 +1,6 @@
 import sys
+sys.setrecursionlimit(200000)
 from collections import deque
-
 
 def find(v):
     if parent[v] == v:
