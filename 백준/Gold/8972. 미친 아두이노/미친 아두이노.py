@@ -1,67 +1,76 @@
 import sys
-
-input = sys.stdin.readline
-r, c = map(int, input().split())
-
-graph = [list(map(str, input().rstrip())) for _ in range(r)]
-command = list(map(int, input().rstrip()))
-direction = [[0, 0], [1, -1], [1, 0], [1, 1], [0, -1], [0, 0], [0, 1], [-1, -1], [-1, 0], [-1, 1]]
-
-aduino = []
-for i in range(r):
-    for j in range(c):
-        if graph[i][j] == 'I':
-            start_y, start_x = i, j
-        elif graph[i][j] == 'R':
-            aduino.append([i, j])
-count = 0
+from itertools import *
 
 
-def calc_dist(a, start):
-    return abs(a[0] - start[0]) + abs(a[1] - start[1])
+def check_dir(user, arduino):
+    if user[0] > arduino[0]:
+        dy = 1
+    elif user[0] == arduino[0]:
+        dy = 0
+    else:
+        dy = -1
+
+    if user[1] > arduino[1]:
+        dx = 1
+    elif user[1] == arduino[1]:
+        dx = 0
+    else:
+        dx = -1
+    return dy, dx
 
 
-for k, op in enumerate(command):
-    dy, dx = direction[op]
-    graph[start_y][start_x] = '.'
-    start_y, start_x = start_y + dy, start_x + dx
-    if graph[start_y][start_x] == 'R':
-        print('kraj {}'.format(k + 1))
+direction = ((0, 0), (1, -1), (1, 0), (1, 1), (0, -1), (0, 0), (0, 1), (-1, -1), (-1, 0), (-1, 1))
+n, m = map(int, input().split())
+
+board = [list(input()) for _ in range(n)]
+
+command = input()
+arduinoes = []
+for i in range(n):
+    for j in range(m):
+        if board[i][j] == 'I':
+            user = [i, j]
+        elif board[i][j] == 'R':
+            arduinoes.append([i, j])
+
+for i, c in enumerate(command):
+    c = int(c)
+    dy, dx = direction[c]
+    y = user[0]
+    x = user[1]
+    board[y][x] = '.'
+    ny, nx = y + dy, x + dx
+    if board[ny][nx] == 'R':
+        print('kraj', i + 1)
         sys.exit()
 
-    graph[start_y][start_x] = 'I'
-    boom = []
-    next_aduino = set()
+    board[ny][nx] = 'I'
+    user = [ny, nx]
+    next_arduino = []
+    for arduino in arduinoes:
+        y, x = arduino
+        board[y][x] = '.'
 
-    for a in aduino:
-        i, j = a
-        graph[i][j] = '.'
-
-    for a in aduino:
-        i, j = a
-        dist = calc_dist([i, j], [start_y, start_x])
-        for dy, dx in direction:
-            temp_y, temp_x = i + dy, j + dx
-            temp_dist = calc_dist([temp_y, temp_x], [start_y, start_x])
-            if temp_dist < dist:
-                dist = temp_dist
-                ny, nx = temp_y, temp_x
-        if graph[ny][nx] == 'I':
-            print('kraj {}'.format(k + 1))
+    for arduino in arduinoes:
+        y, x = arduino
+        dy, dx = check_dir(user, arduino)
+        ny, nx = dy + y, dx + x
+        if board[ny][nx] == 'I':
+            print('kraj', i + 1)
             sys.exit()
+        elif board[ny][nx] == '.':
+            next_arduino.append([ny, nx])
+            board[ny][nx] = 'R'
+        elif board[ny][nx] == 'R':
+            board[ny][nx] = 'B'
 
-        else:
-            if graph[ny][nx] == 'R':
-                boom.append([ny, nx])
-                continue
-            graph[ny][nx] = 'R'
-            next_aduino.add((ny,nx))
-    aduino = []
+    arduinoes.clear()
+    for arduino in next_arduino:
+        y, x = arduino
+        if board[y][x] == 'B':
+            board[y][x] = '.'
+            continue
+        arduinoes.append(arduino)
 
-    for by, bx in boom:
-        graph[by][bx] = '.'
-    aduino = next_aduino - set(map(tuple,boom))
-
-
-for _ in graph:
-    print(''.join(_))
+for i in range(n):
+    print(''.join(board[i]).replace('B', '.'))
